@@ -1,7 +1,13 @@
 const jwt = require('jsonwebtoken');
 const crypto= require('crypto');
 const ApiAuth = require('../../Middlewares/Api-auth');
-module.exports=(app)=>{
+module.exports=(app) => {
+    
+    app.get("/",(req,res) => {
+        res.json({
+            message: "Hello Word"
+        })
+    });
     app.post("/usuarios/cadastro", ApiAuth,(req,res) =>{ 
        const usuario = req.body;
             let connection = app.persistencia.connectionFactory();
