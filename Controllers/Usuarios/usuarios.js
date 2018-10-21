@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const crypto= require('crypto');
+const crypto = require('crypto');
 const ApiAuth = require('../../Middlewares/Api-auth');
 module.exports=(app) => {
     
