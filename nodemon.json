@@ -1,8 +1,8 @@
 {
     "env":{
-        "Host":"mysql556.umbler.com",
-        "Port": "41890",
-        "Password":"HjyyvsJLU3",
+        "Host":"127.0.0.1",
+        "Port": "54358",
+        "Password":"6#vWHD_$",
         "xapi":"secret",
         "apiToken":"XjpcXLgDcrXwgNXue6HDjQfBrDC2Lqm8QbsjPaAMfkG5yfNNyxeP7mVt"
     }
