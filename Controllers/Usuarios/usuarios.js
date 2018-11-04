@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const ApiAuth = require('../../Middlewares/Api-auth');
 module.exports=(app) => {
     
     app.get("/",(req,res) => {
@@ -8,7 +7,7 @@ module.exports=(app) => {
             message: "Hello Word"
         })
     });
-    app.post("/usuarios/cadastro", ApiAuth,(req,res) =>{ 
+    app.post("/usuarios/cadastro",(req,res) =>{ 
        const usuario = req.body;
             let connection = app.persistencia.connectionFactory();
             connection.connect();
@@ -40,7 +39,7 @@ module.exports=(app) => {
                 connection.end();
             });
     });
-    app.post("/usuarios/login",ApiAuth,(req,res,next)=>{
+    app.post("/usuarios/login",(req,res,next)=>{
         let email = req.body.usu_email;
         let senha = req.body.usu_senha;
         let validate = false;
@@ -85,7 +84,7 @@ module.exports=(app) => {
             });
      
     });
-    app.delete("/usuarios/:id",ApiAuth,(req,res,next)=>{
+    app.delete("/usuarios/:id",(req,res,next)=>{
         let id = req.params.id;
         let connection = app.persistencia.connectionFactory();
         connection.connect;

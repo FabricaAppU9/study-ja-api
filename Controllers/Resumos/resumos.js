@@ -1,4 +1,3 @@
-const ApiAuth = require('../../Middlewares/Api-auth');
 const TokenAuth = require('../../Middlewares/Token-auth');
 const AdminAuth = require('../../Middlewares/AdminToken-auth');
 module.exports=function(app){
@@ -16,7 +15,7 @@ module.exports=function(app){
       });        
       connection.end();
     });
-    app.get('/resumos/artigos',ApiAuth,(req,res) => {
+    app.get('/resumos/artigos',(req,res) => {
         var connection = app.persistencia.connectionFactory();
         connection.connect();
         var resumosDao = new app.persistencia.ResumosDao(connection);
@@ -31,7 +30,7 @@ module.exports=function(app){
          connection.end();
        });
     
-    app.post('/resumos/resumo', ApiAuth,TokenAuth,(req, res) => {
+    app.post('/resumos/resumo',TokenAuth,(req, res) => {
         const resumo = req.body;
         var validatorTitulo = req.assert('titulo', 'Titulo é obrigatório').notEmpty();
         var erros = req.validationErrors();
@@ -55,7 +54,7 @@ module.exports=function(app){
         });
         connection.end();
     });
-    app.get('/resumos/resumo/:id',ApiAuth,(req,res) => {
+    app.get('/resumos/resumo/:id',(req,res) => {
         const id = req.params.id;
         let validatorId = req.assert('id', 'id é obrigatório').notEmpty();
         let erros = req.validationErrors();
@@ -86,7 +85,7 @@ module.exports=function(app){
         });
         connection.end();
     });
-    app.patch('/resumos/resumo/:id',ApiAuth,AdminAuth,(req,res,next)=>{
+    app.patch('/resumos/resumo/:id',AdminAuth,(req,res,next)=>{
         const id= req.params.id;
         let validatorId = req.assert('id','id é obrigatório').notEmpty();
         let errors = req.validationErrors();
@@ -112,7 +111,7 @@ module.exports=function(app){
             }
         });
     });
-    app.get('/resumos/categorias',ApiAuth,(req,res,next)=>{
+    app.get('/resumos/categorias',(req,res,next)=>{
         let connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
         resumosDao.listaCategorias((err,resultado)=>{
@@ -127,7 +126,7 @@ module.exports=function(app){
             }
         });
     });
-    app.get('/resumos/categoria/:id',ApiAuth,(req,res,next)=>{
+    app.get('/resumos/categoria/:id' cons,(req,res,next)=>{
         let id = req.params.id
         let connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
@@ -139,7 +138,7 @@ module.exports=function(app){
             }
         });
     });
-    app.post('/resumos/resumo/avaliar',ApiAuth,TokenAuth,(req,res,next)=>{
+    app.post('/resumos/resumo/avaliar' cons,TokenAuth,(req,res,next)=>{
         let info = req.body;
         let connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
@@ -182,7 +181,7 @@ module.exports=function(app){
             }
         });
     });
-    app.post('/resumos/resumo/comentar',ApiAuth,TokenAuth,(req,res,next)=>{
+    app.post('/resumos/resumo/comentar' cons,TokenAuth,(req,res,next)=>{
         let tra_id= req.body.comnt_tra_id;
         let usu_id= req.body.comnt_usu_id;
         let coment= req.body.comnt_comentario;
