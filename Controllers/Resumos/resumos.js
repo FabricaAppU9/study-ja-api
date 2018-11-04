@@ -85,32 +85,7 @@ module.exports=function(app){
         });
         connection.end();
     });
-    app.patch('/resumos/resumo/:id',AdminAuth,(req,res,next)=>{
-        const id= req.params.id;
-        let validatorId = req.assert('id','id é obrigatório').notEmpty();
-        let errors = req.validationErrors();
-        if(errors){
-            res.json(errors);
-            res.status(422)
-            return;
-        }
-        var connection = app.persistencia.connectionFactory();
-        var resumosDao = new app.persistencia.ResumosDao(connection);
-        resumosDao.editar(id,(erros,callback)=>{
-            if(!erros){
-                res.status(200).json({
-                    Mensagem: "Resumo aprovado com sucesso",
-                    resultado:callback
-                });
-            }
-            else{
-                res.status(400).json({
-                    Mensagem: "Não foi possível aprovar este resumo",
-                    error: erros
-                });
-            }
-        });
-    });
+    
     app.get('/resumos/categorias',(req,res,next)=>{
         let connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
