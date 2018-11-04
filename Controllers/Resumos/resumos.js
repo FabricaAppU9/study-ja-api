@@ -126,7 +126,7 @@ module.exports=function(app){
             }
         });
     });
-    app.get('/resumos/categoria/:id' cons,(req,res,next)=>{
+    app.get('/resumos/categoria/:id',(req,res,next)=>{
         let id = req.params.id
         let connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
@@ -138,7 +138,7 @@ module.exports=function(app){
             }
         });
     });
-    app.post('/resumos/resumo/avaliar' cons,TokenAuth,(req,res,next)=>{
+    app.post('/resumos/resumo/avaliar',TokenAuth,(req,res,next)=>{
         let info = req.body;
         let connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
@@ -181,7 +181,7 @@ module.exports=function(app){
             }
         });
     });
-    app.post('/resumos/resumo/comentar' cons,TokenAuth,(req,res,next)=>{
+    app.post('/resumos/resumo/comentar',TokenAuth,(req,res,next)=>{
         let tra_id= req.body.comnt_tra_id;
         let usu_id= req.body.comnt_usu_id;
         let coment= req.body.comnt_comentario;
