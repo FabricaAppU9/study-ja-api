@@ -2,19 +2,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const consign = require('consign');
 const validator = require('express-validator');
+const cors = require('cors');
 
 //exportando objeto express e incluindo pasta Controllers, com as rotas
 // ou endpoints dentro do objeto express
-module.exports = function(){
+module.exports = function () {
     const app = express();
     console.log("objeto express iniciado com sucesso");
+    app.use(cors());
     //ensinar o objeto express a ler requisoes com o body em json
-    app.use(bodyParser.urlencoded({extended:true}));
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(validator());
 
-    app.use((req,res,next) =>{
-        res.header('Access-Control-Allow-Origin','*');
+    app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-type, Accept, Authorization');
         next();
     });
@@ -37,8 +39,8 @@ module.exports = function(){
     //lib consign faz com que incluimos uma pasta e seus conteudos
     //dentro de um objeto
     consign()
-    .include('Controllers')
+        .include('Controllers')
         .then('persistencia')
-            .into(app);
+        .into(app);
     return app;
 }
