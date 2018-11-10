@@ -35,9 +35,9 @@ module.exports=function(app){
         var validatorTitulo = req.assert('titulo', 'Titulo é obrigatório').notEmpty();
         var erros = req.validationErrors();
         if(erros){
-            res.json(erros);    
-            res.status(422);
-            return;
+            return res.status(422).json(erros);    
+           
+            
         }
         //lembrando que os nomes dos campos no BANCO DE DADOS, devem ter o mesmo nome da tag NAME, nos formularios
         // HTML;

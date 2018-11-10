@@ -4,7 +4,7 @@
     
         Resumos.prototype.salvaResumoLivro = function (resumo, callback) {
             this._connection.query("START TRANSACTION;"+
-            "insert into trabalho (tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_dt_atualizacao,tra_visualizacoes)"+
+            "insert into trabalho (tra_usu_id,tra_cat_id,tra_descricao,tra_tipo,tra_texto,tra_dt_criacao,tra_dt_atualizacao,tra_visualizacoes)"+
            "VALUES (1,2,testes,texto teste para inser com transaction, now(),now(),12);"+
            "insert into livro (liv_nome,liv_editora,liv_volume,liv_ano)"+
             "VALUES(LAST_INSERT_ID(),TESTE,testeeditora,volume 2,liv_ano);"+
@@ -12,7 +12,7 @@
         }
         Resumos.prototype.salvaResumoArtigo= function(resumo,callback){
             this._connection.query("START TRANSACTION;"+
-                "insert into trabalho (tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_dt_atualizacao,tra_visualizacoes)"+
+                "insert into trabalho (tra_usu_id,tra_cat_id,tra_descricao,tra_tipo,tra_texto,tra_dt_criacao,tra_dt_atualizacao,tra_visualizacoes)"+
                 "VALUES (1,2,testes,texto teste para inser com transaction, now(),now(),12);"+
                 "insert into artigo(tra_id,art_titulo)"+
                 "VALUES (LAST_INSERT_ID(),teste dois);"+
