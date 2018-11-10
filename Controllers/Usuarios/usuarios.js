@@ -7,8 +7,14 @@ module.exports=(app) => {
             message: "Hello Word"
         })
     });
-    app.post("/usuarios/cadastro",(req,res) =>{ 
-       const usuario = req.body;
+    app.post("/usuarios/cadastro",(req,res,next) =>{ 
+        const usuario = req.body;
+        if(req.body.constructor === Object && Object.keys(req.body).length === 0){
+            return res.json({
+                    message: 'Por favor nos informe as informações para cadastro!'
+                });
+               
+            }
             let connection = app.persistencia.connectionFactory();
             connection.connect();
             let usuariosDAO = new app.persistencia.UsuariosDAO(connection);
@@ -40,6 +46,11 @@ module.exports=(app) => {
             });
     });
     app.post("/usuarios/login",(req,res,next)=>{
+        if(req.body.constructor === Object && Object.keys(req.body).length === 0){
+            return res.json({
+                message: 'Por favore informe o login e a senha!'
+            });
+        }
         let email = req.body.usu_email;
         let senha = req.body.usu_senha;
         let validate = false;
@@ -76,9 +87,10 @@ module.exports=(app) => {
                 }
             }
             else { 
-               res.json({
+                
+               res.status(500).json({
                     messageDev:err,
-                    message: "Auth Failed"
+                    message: "Erro ao se conectar no banco!"
                });
             }   
             });
