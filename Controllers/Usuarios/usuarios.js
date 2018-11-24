@@ -15,6 +15,7 @@ module.exports=(app) => {
                 });
                
             }
+            
             let connection = app.persistencia.connectionFactory();
             connection.connect();
             let usuariosDAO = new app.persistencia.UsuariosDAO(connection);
