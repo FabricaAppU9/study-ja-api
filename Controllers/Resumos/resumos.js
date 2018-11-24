@@ -42,12 +42,12 @@ module.exports = function (app) {
         const tra_descricao = req.body.tra_descricao;
         const tra_texto = req.body.tra_texto;
         const tra_dt_criacao = req.body.tra_dt_criacao;
-        const tra_visualizacao = req.body.tra_visualizacao;
+        const tra_visualizacoes = req.body.tra_visualizacoes;
         const liv_nome = req.body.liv_nome;
         const liv_editora = req.body.liv_editora;
         const liv_ano = req.body.liv_ano;
 
-        let resumo=[tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacao,liv_nome,liv_editora,liv_ano];
+        let resumo=[tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacoes,liv_nome,liv_editora,liv_ano];
 
         var connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
@@ -78,9 +78,9 @@ module.exports = function (app) {
         const tra_descricao = req.body.tra_descricao;
         const tra_texto = req.body.tra_texto;
         const tra_dt_criacao = req.body.tra_dt_criacao;
-        const tra_visualizacao = req.body.tra_visualizacao;
+        const tra_visualizacoes = req.body.tra_visualizacoes;
         const art_titulo = req.body.art_titulo;
-        let resumo=[tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacao,art_titulo];
+        let resumo=[tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacoes,art_titulo];
 
         var connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
