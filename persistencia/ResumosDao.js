@@ -3,12 +3,10 @@ function Resumos(connection) {
 }
 
 Resumos.prototype.salvaResumoLivro = function (resumo, callback) {
-    this._connection.query("START TRANSACTION;" +
-        "insert into trabalho (tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacoes)" +
-        "VALUES (?,?,?,?,now(),?);" +
-        "insert into livro (tra_id,liv_nome,liv_editora,liv_volume,liv_ano)" +
-        "VALUES(LAST_INSERT_ID(),?,?,?);" +
-        "COMMIT;", [resumo[0],resumo[1],resumo[2],resumo[3],resumo[5],resumo[6],resumo[7],resumo[8],resumo[9]], callback);
+    this._connection.query(`START TRANSACTION;
+        insert into trabalho (tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacoes) VALUES (?,?,?,?,now(),?);
+        insert into livro (tra_id,liv_nome,liv_editora,liv_volume,liv_ano) VALUES(LAST_INSERT_ID(),?,?,?);
+        COMMIT;`, [resumo[0],resumo[1],resumo[2],resumo[3],resumo[5],resumo[6],resumo[7],resumo[8],resumo[9]], callback);
 }
 Resumos.prototype.salvaResumoArtigo = function (resumo, callback) {
     this._connection.query("START TRANSACTION;" +
