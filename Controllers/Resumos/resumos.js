@@ -30,19 +30,62 @@ module.exports = function (app) {
         connection.end();
     });
 
-    app.post('/resumos/resumo', TokenAuth, (req, res) => {
-        const resumo = req.body;
-        // var validatorTitulo = req.assert('titulo', 'Titulo é obrigatório').notEmpty();
-        var erros = req.validationErrors();
-        if (erros) {
-            return res.status(422).json(erros);
+    app.post('/resumos/livro', TokenAuth, (req, res) => {
+
+        if(req.body.constructor === Object && Object.keys(req.body).length === 0){
+            return res.json({
+                    message: 'Resumo não pode ser vazio!'
+                });
         }
-        //lembrando que os nomes dos campos no BANCO DE DADOS, devem ter o mesmo nome da tag NAME, nos formularios
-        // HTML;
+        const tra_usu_id = req.body.tra_usu_id;
+        const tra_cat_id = req.body.tra_cat_id;
+        const tra_descricao = req.body.tra_descricao;
+        const tra_texto = req.body.tra_texto;
+        const tra_dt_criacao = req.body.tra_dt_criacao;
+        const tra_visualizacao = req.body.tra_visualizacao;
+        const liv_nome = req.body.liv_nome;
+        const liv_editora = req.body.liv_editora;
+        const liv_ano = req.body.liv_ano;
+
+        let resumo=[tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacao,liv_nome,liv_editora,liv_ano];
+
         var connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
 
         resumosDao.salvaResumoLivro(resumo, function (error, resultado) {
+            if (error) {
+                res.status(400).json({
+                    error: error
+                })
+            }
+            if (!error) {
+                console.log('resumo criado');
+                res.status(200).json(resultado);
+            }
+            else
+                console.log("error performing POST" + error);
+        });
+        connection.end();
+    });
+    app.post('/resumos/artigo', TokenAuth, (req, res) => {
+        if(req.body.constructor === Object && Object.keys(req.body).length === 0){
+            return res.json({
+                    message: 'Resumo não pode ser vazio!'
+                });
+        }
+        const tra_usu_id = req.body.tra_usu_id;
+        const tra_cat_id = req.body.tra_cat_id;
+        const tra_descricao = req.body.tra_descricao;
+        const tra_texto = req.body.tra_texto;
+        const tra_dt_criacao = req.body.tra_dt_criacao;
+        const tra_visualizacao = req.body.tra_visualizacao;
+        const art_titulo = req.body.art_titulo;
+        let resumo=[tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacao,art_titulo];
+
+        var connection = app.persistencia.connectionFactory();
+        var resumosDao = new app.persistencia.ResumosDao(connection);
+
+        resumosDao.salvaResumoArtigo(resumo, function (error, resultado) {
             if (error) {
                 res.status(400).json({
                     error: error
