@@ -32,10 +32,10 @@ module.exports = function (app) {
 
     app.post('/resumos/livro', TokenAuth, (req, res) => {
 
-        if(req.body.constructor === Object && Object.keys(req.body).length === 0){
+        if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
             return res.json({
-                    message: 'Resumo não pode ser vazio!'
-                });
+                message: 'Resumo não pode ser vazio!'
+            });
         }
         const tra_usu_id = req.body.tra_usu_id;
         const tra_cat_id = req.body.tra_cat_id;
@@ -47,12 +47,12 @@ module.exports = function (app) {
         const liv_editora = req.body.liv_editora;
         const liv_ano = req.body.liv_ano;
 
-        let resumo=[tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacoes,liv_nome,liv_editora,liv_ano];
+        let resumo = [tra_usu_id, tra_cat_id, tra_descricao, tra_texto, tra_dt_criacao, tra_visualizacoes, liv_nome, liv_editora, liv_ano];
 
         var connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
 
-        resumosDao.salvaResumoLivro(resumo, function (error, resultado) {
+        resumosDao.salvaResumoLivroTransaction(resumo, function (error, resultado) {
             if (error) {
                 res.status(400).json({
                     error: error
@@ -68,10 +68,10 @@ module.exports = function (app) {
         connection.end();
     });
     app.post('/resumos/artigo', TokenAuth, (req, res) => {
-        if(req.body.constructor === Object && Object.keys(req.body).length === 0){
+        if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
             return res.json({
-                    message: 'Resumo não pode ser vazio!'
-                });
+                message: 'Resumo não pode ser vazio!'
+            });
         }
         const tra_usu_id = req.body.tra_usu_id;
         const tra_cat_id = req.body.tra_cat_id;
@@ -80,7 +80,7 @@ module.exports = function (app) {
         const tra_dt_criacao = req.body.tra_dt_criacao;
         const tra_visualizacoes = req.body.tra_visualizacoes;
         const art_titulo = req.body.art_titulo;
-        let resumo=[tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacoes,art_titulo];
+        let resumo = [tra_usu_id, tra_cat_id, tra_descricao, tra_texto, tra_dt_criacao, tra_visualizacoes, art_titulo];
 
         var connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
