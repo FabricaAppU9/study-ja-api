@@ -52,7 +52,7 @@ module.exports = function (app) {
         var connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
 
-        resumosDao.salvaResumoLivroTransaction(resumo, function (error, resultado) {
+        resumosDao.salvaResumoLivro(resumo, function (error, resultado) {
             if (error) {
                 res.status(400).json({
                     error: error

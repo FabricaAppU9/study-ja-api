@@ -1,8 +1,9 @@
 var mysql = require('mysql');
 const dotenv = require('dotenv');
 dotenv.config();
-function createDBConnection(){
-    return mysql.createConnection({ 
+function createDBConnection() {
+    return mysql.createConnection({
+        multipleStatements: true,
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
         user: process.env.DB_USER,
@@ -11,6 +12,6 @@ function createDBConnection(){
     });
 }
 console.log("Conexão ligada" + createDBConnection());
-module.exports=function(){
+module.exports = function () {
     return createDBConnection;
 }
