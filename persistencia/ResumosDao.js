@@ -2,30 +2,30 @@ function Resumos(connection) {
     this._connection = connection;
 }
 Resumos.prototype.salvaResumoLivroTransaction = function (resumo, callback) {
-    this._connection.begingTransaction(function (err) {
-        if (err) {
-            throw err;
+    this._connection.begingTransaction(function (error) {
+        if (error) {
+            callback(error, null);
         }
         this._connection.query('insert into trabalho (tra_usu_id,tra_cat_id,tra_descricao,tra_texto,tra_dt_criacao,tra_visualizacoes) VALUES (?,?,?,?,now(),?);', [resumo[0], resumo[1], resumo[2], resumo[3], resumo[5], resumo[6]], function (error, result) {
             if (error) {
                 return this._connection.rollback(function () {
-                    throw error;
+                    callback(error, null);
                 });
             }
             const lastId = result.insertId;
             this._connection.query('insert into livro (tra_id,liv_nome,liv_editora,liv_volume,liv_ano) VALUES(?,?,?,?);', lastId, resumo[7], resumo[8], resumo[9], function (error, result) {
                 if (error) {
                     return this._connection.rollback(function () {
-                        throw error;
+                        callback(error, null);
                     });
                 }
-                this._connection.commit(function (err) {
-                    if (err) {
+                this._connection.commit(function (error) {
+                    if (error) {
                         return this._connection.rollback(function () {
-                            throw err;
+                            callback(error, null);
                         });
                     }
-                    return result;
+                    return callback(null, result);
                 });
             });
         });
