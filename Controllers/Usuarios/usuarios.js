@@ -84,7 +84,7 @@ module.exports=(app) => {
                     res.status(200).json({
                         message:"Auth sucessful",
                         token: token,
-                        resultado:resultado
+                        usu_id:resultado.usu_id
                     })
                 }
             }
