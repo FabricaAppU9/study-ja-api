@@ -5,7 +5,10 @@ module.exports = (app) => {
     app.get("/", (req, res) => {
         res.json({
             message: "Hello Word"
-        })
+        });
+        req.io.emit('hello', {
+            "hellow": "world"
+        });
     });
     app.post("/usuarios/cadastro", (req, res, next) => {
         const usuario = req.body;

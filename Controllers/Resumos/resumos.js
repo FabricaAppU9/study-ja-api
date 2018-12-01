@@ -61,6 +61,7 @@ module.exports = function (app) {
             if (!error) {
                 console.log('resumo criado');
                 res.status(200).json(resultado);
+                req.io.emit('newResumeBook', resultado);
             }
             else
                 console.log("error performing POST" + error);
@@ -94,6 +95,8 @@ module.exports = function (app) {
             if (!error) {
                 console.log('resumo criado');
                 res.status(200).json(resultado);
+                req.io.emit('newResumeArticle', resultado);
+
             }
             else
                 console.log("error performing POST" + error);
@@ -168,6 +171,8 @@ module.exports = function (app) {
                 res.status(200).json({
                     Mensagem: "Resumo Avaliado com sucesso!"
                 });
+                req.io.emit('newReview', resultado);
+
             } else {
                 res.status(400).json({
                     Mensagem: "Não foi possível avaliar este resumo",
@@ -216,6 +221,7 @@ module.exports = function (app) {
                     Mensagem: "Comentário feito com sucesso!",
                     resultado: resultado
                 });
+                req.io.emit('newComent', resultado);
             } else {
                 res.status(400).json({
                     Mensagem: "Não possível efetuar o comentário",

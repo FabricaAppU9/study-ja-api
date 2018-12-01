@@ -4,10 +4,14 @@ const consign = require('consign');
 const validator = require('express-validator');
 const cors = require('cors');
 
+
 //exportando objeto express e incluindo pasta Controllers, com as rotas
 // ou endpoints dentro do objeto express
 module.exports = function () {
     const app = express();
+
+    const server = require('http').Server(app);
+    const io = require('socket.io')(server);
     console.log("objeto express iniciado com sucesso");
     app.use(cors());
     //ensinar o objeto express a ler requisoes com o body em json
@@ -16,8 +20,7 @@ module.exports = function () {
     app.use(validator());
 
     app.use((req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-type, Accept, Authorization');
+        req.io = io;
         next();
     });
     //criando error log para requisições erradas e/ou não encontradas;
