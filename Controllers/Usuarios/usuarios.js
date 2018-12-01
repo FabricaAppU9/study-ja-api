@@ -64,9 +64,9 @@ module.exports = (app) => {
         usuariosDAO.getHash(email, (err, resultado) => {
             if (!err) {
                 if (JSON.stringify(resultado) === '[]') {
-                    res.status(200)
+                    return res.status(200)
                         .json({
-                            "Message": "Usuário inexistente";
+                            "Message": "Usuário inexistente"
                         });
                 }
                 let hash = resultado[0].usu_senha;
