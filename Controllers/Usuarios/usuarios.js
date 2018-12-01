@@ -63,6 +63,12 @@ module.exports = (app) => {
         let usuariosDAO = new app.persistencia.UsuariosDAO(connection);
         usuariosDAO.getHash(email, (err, resultado) => {
             if (!err) {
+                if (JSON.stringify(resultado) === '[]') {
+                    res.status(200)
+                        .json({
+                            "Message": "Usuário inexistente";
+                        });
+                }
                 let hash = resultado[0].usu_senha;
                 console.log(resultado);
                 let decipher = crypto.createDecipher('aes192', 'teste');
