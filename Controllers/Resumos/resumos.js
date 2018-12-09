@@ -105,6 +105,7 @@ module.exports = function (app) {
     });
     app.get('/resumos/resumo/:id', (req, res) => {
         const id = req.params.id;
+        const type = req.body.type;
         let validatorId = req.assert('id', 'id é obrigatório').notEmpty();
         let erros = req.validationErrors();
         if (erros) {
@@ -114,24 +115,44 @@ module.exports = function (app) {
         }
         var connection = app.persistencia.connectionFactory();
         var resumosDao = new app.persistencia.ResumosDao(connection);
-
-        resumosDao.listaId(id, (error, resultado) => {
-            if (JSON.stringify(resultado) === '[]') {
-                res.status(200);
-                res.json({
-                    mensagem: 'Resumo não existente'
-                });
-                return;
-            }
-            if (!error) {
-                res.send(resultado);
-                res.status(200);
-            }
-            else {
-                res.status(500);
-                res.send(error);
-            }
-        });
+        if (type === 'A') {
+            resumosDao.listIdArtigo(id, (error, resultado) => {
+                if (JSON.stringify(resultado) === '[]') {
+                    res.status(200);
+                    res.json({
+                        mensagem: 'Resumo não existente'
+                    });
+                    return;
+                }
+                if (!error) {
+                    res.send(resultado);
+                    res.status(200);
+                }
+                else {
+                    res.status(500);
+                    res.send(error);
+                }
+            });
+        }
+        if (type === 'L') {
+            resumosDao.listIdLivro(id, (error, resultado) => {
+                if (JSON.stringify(resultado) === '[]') {
+                    res.status(200);
+                    res.json({
+                        mensagem: 'Resumo não existente'
+                    });
+                    return;
+                }
+                if (!error) {
+                    res.send(resultado);
+                    res.status(200);
+                }
+                else {
+                    res.status(500);
+                    res.send(error);
+                }
+            });
+        }
         connection.end();
     });
 

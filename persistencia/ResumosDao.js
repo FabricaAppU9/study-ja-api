@@ -43,8 +43,11 @@ Resumos.prototype.listaResumosLivro = function (callback) {
 Resumos.prototype.listaResumosArtigo = function (callback) {
     this._connection.query('select t.*,a.*,u.usu_nome from trabalho t inner join artigo a on t.tra_id = a.tra_id inner join usuario u on t.tra_usu_id=u.usu_id', callback);
 }
-Resumos.prototype.listaId = function (id, callback) {
-    this._connection.query('select * from trabalho where tra_id = ?', id, callback);
+Resumos.prototype.listIdArtigo = function (id, callback) {
+    this._connection.query('select t.*,a.* from trabalho t inner join artigo a on t.tra_id = a.tra_id where t.tra_id = ?', id, callback);
+}
+Resumos.prototype.listIdLivro = function (id, callback) {
+    this._connection.query('select t.*,l.* from trabalho t inner join livro l on t.tra_id = l.tra_id where t.tra_id = ?', id, callback);
 }
 Resumos.prototype.editar = function (id, callback) {
     this._connection.query("update trabalho set trab_inf_post = 1 where usu_id = ? ", id, callback);
