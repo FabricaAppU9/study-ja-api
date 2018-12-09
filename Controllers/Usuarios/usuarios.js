@@ -64,7 +64,7 @@ module.exports = (app) => {
         usuariosDAO.getHash(email, (err, resultado) => {
             if (!err) {
                 if (JSON.stringify(resultado) === '[]') {
-                    return res.status(200)
+                    return res.status(401)
                         .json({
                             "Message": "Usuário inexistente"
                         });
