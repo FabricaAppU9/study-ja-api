@@ -106,6 +106,24 @@ module.exports = (app) => {
         });
 
     });
+    app.get("/usuario/detail/:id", (req, res, next) => {
+        let id = req.params.id;
+        let connection = app.persistencia.connectionFactory();
+        connection.connect;
+        let UsuariosDAO = new app.persistencia.UsuariosDAO(connection);
+        UsuariosDAO.detail(id, (err, result) => {
+            if (err) {
+                res.status(400).json({
+                    "error": err
+                });
+            }
+            else {
+                res.status(200).json({
+                    "usuario": result
+                });
+            }
+        });
+    });
     app.delete("/usuarios/:id", (req, res, next) => {
         let id = req.params.id;
         let connection = app.persistencia.connectionFactory();
