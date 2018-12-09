@@ -146,11 +146,17 @@ module.exports = function (app) {
                 if (!error) {
                     res.send(resultado);
                     res.status(200);
+                    next();
                 }
                 else {
                     res.status(500);
                     res.send(error);
+                    next();
                 }
+            });
+        } else {
+            return res.status('400').json({
+                message: 'Por favor passe um tipo válido'
             });
         }
         connection.end();
