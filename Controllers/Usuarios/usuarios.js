@@ -166,4 +166,32 @@ module.exports = (app) => {
             }
         });
     });
+    app.get("/usuario/:email/email", (req, res, next) => {
+        const email = req.params.email;
+        console.log(email);
+        const connection = app.persistencia.connectionFactory();
+        connection.connect();
+        const usuariosDao = new app.persistencia.UsuariosDAO(connection);
+        if (email === '') {
+            return res.status(500).json({
+                message: "E-mail não pode ser vazio!"
+            });
+            next();
+        }
+        usuariosDao.hasEmail(email, (error, result) => {
+            if (error) {
+                return res.status(500).json({
+                    error: error
+                });
+            } else if (result.length == 0) {
+                res.status(200).json({
+                    message: "E-mail válido"
+                });
+            } else {
+                res.status(403).json({
+                    message: "E-mail já cadastrado"
+                });
+            }
+        });
+    });
 }
