@@ -152,8 +152,8 @@ module.exports = (app) => {
         let id = req.params.id;
         let connection = app.persistencia.connectionFactory();
         connection.connect();
-        let usuariossDAO = new app.persistencia.UsuariosDAO(connection);
-        usuariossDAO.getUserInfo(id, (err, resultado) => {
+        let usuariosDAO = new app.persistencia.UsuariosDAO(connection);
+        usuariosDAO.getUserInfo(id, (err, resultado) => {
             if (!err) {
                 res.status(200).json({
                     resultado: resultado
