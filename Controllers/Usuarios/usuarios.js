@@ -166,4 +166,28 @@ module.exports = (app) => {
             }
         });
     });
+
+    app.get('/exists/:email', (req, res, next) => {
+        let email = req.params.email;
+
+        let connection = app.persistencia.connectionFactory();
+        connection.connect();
+        let usuarioDao = new app.persistencia.UsuariosDAO(connection);
+
+        usuarioDao.existsUser(email, function (err, resultado){
+            if (!err) {
+                res.status(200).json({
+                    mensagem: "Usuário Indisponivel",
+                    email: email,
+                    resultado: resultado
+                });
+            } else {
+                res.status(400).json({
+                    mensagem: "Usuario Disponivel",
+                    resultado: resultado,
+                    email: email
+                });
+            }
+        })
+    });
 }
