@@ -103,7 +103,7 @@ module.exports = function (app) {
         });
         connection.end();
     });
-    app.get('/resumos/resumo/:id', (req, res) => {
+    app.post('/resumos/resumo/:id', (req, res) => {
         const id = req.params.id;
         const type = req.body.type;
         let validatorId = req.assert('id', 'id é obrigatório').notEmpty();
