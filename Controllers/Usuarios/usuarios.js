@@ -152,8 +152,8 @@ module.exports = (app) => {
         let id = req.params.id;
         let connection = app.persistencia.connectionFactory();
         connection.connect();
-        let usuariossDAO = new app.persistencia.UsuariosDAO(connection);
-        usuariossDAO.getUserInfo(id, (err, resultado) => {
+        let usuariosDAO = new app.persistencia.UsuariosDAO(connection);
+        usuariosDAO.getUserInfo(id, (err, resultado) => {
             if (!err) {
                 res.status(200).json({
                     resultado: resultado
@@ -166,28 +166,32 @@ module.exports = (app) => {
             }
         });
     });
-
-    app.get('/exists/:email', (req, res, next) => {
-        let email = req.params.email;
-
-        let connection = app.persistencia.connectionFactory();
+    app.get("/usuario/:email/email", (req, res, next) => {
+        const email = req.params.email;
+        console.log(email);
+        const connection = app.persistencia.connectionFactory();
         connection.connect();
-        let usuarioDao = new app.persistencia.UsuariosDAO(connection);
-
-        usuarioDao.existsUser(email, function (err, resultado){
-            if (!err) {
+        const usuariosDao = new app.persistencia.UsuariosDAO(connection);
+        if (email === '') {
+            return res.status(500).json({
+                message: "E-mail não pode ser vazio!"
+            });
+            next();
+        }
+        usuariosDao.hasEmail(email, (error, result) => {
+            if (error) {
+                return res.status(500).json({
+                    error: error
+                });
+            } else if (result.length == 0) {
                 res.status(200).json({
-                    mensagem: "Usuário Indisponivel",
-                    email: email,
-                    resultado: resultado
+                    message: "E-mail válido"
                 });
             } else {
-                res.status(400).json({
-                    mensagem: "Usuario Disponivel",
-                    resultado: resultado,
-                    email: email
+                res.status(403).json({
+                    message: "E-mail já cadastrado"
                 });
             }
-        })
+        });
     });
 }
