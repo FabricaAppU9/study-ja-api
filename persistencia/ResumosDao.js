@@ -79,6 +79,10 @@ Resumos.prototype.getAllComents = function (tra_id, callback) {
 
 Resumos.prototype.newReply = function (comment_id, usu_id, comment, callback) {
     this._connection.query('insert into resposta ( usu_id, com_id, res_texto) VALUES (?,?,?)', [usu_id, comment_id, comment], callback);
+}
+Resumos.prototype.getReplys = function (comment_id, callback) {
+    this._connection.query('select r.usu_id, r.res_texto, c.com_id, u.usu_nome from resposta r inner join comentario c on r.com_id = c.com_id inner join usuario u on r.usu_id = u.usu_id where r.com_id = ?', [comment_id], callback);
+}
 
 module.exports = function () {
     return Resumos;
