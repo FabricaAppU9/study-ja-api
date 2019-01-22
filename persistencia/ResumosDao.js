@@ -68,7 +68,7 @@ Resumos.prototype.getAvaliacao = function (id, callback) {
     this._connection.query('select e.est_valor from estrela e where est_tra_id = ?', id, callback);
 }
 Resumos.prototype.newComent = function (usu_id, tra_id, comentario, callback) {
-    this._connection.query('insert into comentario (comnt_usu_id,comnt_tra_id,comnt_comentario) VALUES (?,?,?)', [usu_id, tra_id, comentario], callback);
+    this._connection.query('insert into comentario (usu_id,tra_id,com_texto) VALUES (?,?,?)', [usu_id, tra_id, comentario], callback);
 }
 Resumos.prototype.getComent = function (comnt_trab_id, callback) {
     this._connection.query('select c.*,u.usu_nome,u.usu_sobrenome,u.usu_img_perfil from comentario c inner join trabalho t on c.comnt_tra_id=t.tra_id inner join usuario u on c.comnt_usu_id=u.usu_id where comnt_tra_id = ?', comnt_trab_id, callback);
