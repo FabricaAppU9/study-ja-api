@@ -77,6 +77,8 @@ Resumos.prototype.getAllComents = function (tra_id, callback) {
     this._connection.query('select c.usu_id, c.com_texto from comentario c inner join usuario u on c.usu_id = u.usu_id where c.tra_id = ?', tra_id, callback)
 }
 
+Resumos.prototype.newReply = function (comment_id, usu_id, comment, callback) {
+    this._connection.query('insert into resposta ( usu_id, com_id, res_texto) VALUES (?,?,?)', [usu_id, comment_id, comment], callback);
 
 module.exports = function () {
     return Resumos;

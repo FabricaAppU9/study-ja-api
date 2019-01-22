@@ -275,4 +275,26 @@ module.exports = function (app) {
             }
         });
     });
-}
+    app.post('/resumos/resumo/comentarios/resposta', (req, res, next) => {
+        let comment_id = req.body.comment_id;
+        let usu_id = req.body.usu_id;
+        let comment = req.body.comment;
+        let connect = app.persistencia.connectionFactory();
+        let resumosDao = new app.persistencia.ResumosDao(connect);
+        resumosDao.newReply(comment_id, usu_id, comment, (err, result) => {
+            if (comment_id === "" || usu_id === "" || comment === "") {
+                return res.status(422).json({
+                    message: "Corpo da requisição está incompleto",
+                });
+            }
+            else if (err) {
+                return res.status(400).json({
+                    message: "SQL error",
+                    error: err
+                });
+            }
+            res.status(200).json({
+                result: result,
+            });
+        });
+    });
