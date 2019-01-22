@@ -257,12 +257,12 @@ module.exports = function (app) {
             }
         });
     });
-    app.get('/resumos/resumo/comentarios/:id', (req, res, nexte) => {
+    app.get('/resumos/resumo/comentarios/:id', (req, res, next) => {
         let trab_id = req.params.id;
 
         let connect = app.persistencia.connectionFactory();
         let resumosDao = new app.persistencia.ResumosDao(connect);
-        resumosDao.getComent(trab_id, (err, resultado) => {
+        resumosDao.getAllComents(trab_id, (err, resultado) => {
             if (!err) {
                 res.status(200).json({
                     comentarios: resultado
