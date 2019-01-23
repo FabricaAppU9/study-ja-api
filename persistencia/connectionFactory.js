@@ -1,6 +1,6 @@
 var mysql = require('mysql');
-const dotenv = require('dotenv');
-dotenv.config();
+const dotenv = require('custom-env').env(true);
+console.log(process.env.DB_PORT);
 function createDBConnection() {
     return mysql.createConnection({
         multipleStatements: true,
