@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "develop": "nodemon server.js"
+    "develop": "$env:NODE_ENV='dev';node server.js"
   },
   "keywords": [
     "resumos",
@@ -18,7 +18,7 @@
     "body-parser": "^1.18.3",
     "consign": "^0.1.6",
     "cors": "^2.8.5",
-    "dotenv": "^6.1.0",
+    "custom-env": "^1.0.0",
     "express": "^4.16.3",
     "express-load": "^1.1.16",
     "express-validator": "^5.3.0",
