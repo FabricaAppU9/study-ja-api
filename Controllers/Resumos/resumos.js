@@ -146,12 +146,10 @@ module.exports = function (app) {
                 if (!error) {
                     res.send(resultado);
                     res.status(200);
-                    next();
                 }
                 else {
                     res.status(500);
                     res.send(error);
-                    next();
                 }
             });
         } else {
