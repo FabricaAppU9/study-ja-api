@@ -74,7 +74,7 @@ Resumos.prototype.getComent = function (comnt_trab_id, callback) {
     this._connection.query('select c.*,u.usu_nome,u.usu_sobrenome,u.usu_img_perfil from comentario c inner join trabalho t on c.comnt_tra_id=t.tra_id inner join usuario u on c.comnt_usu_id=u.usu_id where comnt_tra_id = ?', comnt_trab_id, callback);
 }
 Resumos.prototype.getAllComents = function (tra_id, callback) {
-    this._connection.query('select c.usu_id, c.com_texto, u.usu_username from comentario c inner join usuario u on c.usu_id = u.usu_id where c.tra_id = ?', tra_id, callback)
+    this._connection.query('select c.usu_id, c.com_texto, u.usu_username, u.usu_img_perfil from comentario c inner join usuario u on c.usu_id = u.usu_id where c.tra_id = ?', tra_id, callback)
 }
 
 Resumos.prototype.newReply = function (comment_id, usu_id, comment, callback) {
