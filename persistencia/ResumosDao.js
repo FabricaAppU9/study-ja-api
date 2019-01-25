@@ -44,10 +44,10 @@ Resumos.prototype.listaResumosArtigo = function (callback) {
     this._connection.query('select t.*,a.*,u.usu_nome from trabalho t inner join artigo a on t.tra_id = a.tra_id inner join usuario u on t.tra_usu_id=u.usu_id', callback);
 }
 Resumos.prototype.listIdArtigo = function (id, callback) {
-    this._connection.query('select t.*,a.* from trabalho t inner join artigo a on t.tra_id = a.tra_id where t.tra_id = ?', id, callback);
+    this._connection.query('select tr.*,ta.*,ar.*,tt.* from trabalho_tag tt inner join trabalho tr on tt.tra_id = tr.tra_id inner join tag ta on tt.tag_id = ta.tag_id inner join artigo ar	on tr.tra_id = ar.tra_id where tr.tra_id = ?', id, callback);
 }
 Resumos.prototype.listIdLivro = function (id, callback) {
-    this._connection.query('select t.*,l.* from trabalho t inner join livro l on t.tra_id = l.tra_id where t.tra_id = ?', id, callback);
+    this._connection.query('select tr.*,ta.*,lv.*,tt.* from trabalho_tag tt inner join trabalho tr on tt.tra_id = tr.tra_id	inner join tag ta on tt.tag_id = ta.tag_id inner join livro lv on tr.tra_id = lv.tra_id	where tr.tra_id = ?', id, callback);
 }
 Resumos.prototype.editar = function (id, callback) {
     this._connection.query("update trabalho set trab_inf_post = 1 where usu_id = ? ", id, callback);
@@ -74,7 +74,7 @@ Resumos.prototype.getComent = function (comnt_trab_id, callback) {
     this._connection.query('select c.*,u.usu_nome,u.usu_sobrenome,u.usu_img_perfil from comentario c inner join trabalho t on c.comnt_tra_id=t.tra_id inner join usuario u on c.comnt_usu_id=u.usu_id where comnt_tra_id = ?', comnt_trab_id, callback);
 }
 Resumos.prototype.getAllComents = function (tra_id, callback) {
-    this._connection.query('select c.usu_id, c.com_texto from comentario c inner join usuario u on c.usu_id = u.usu_id where c.tra_id = ?', tra_id, callback)
+    this._connection.query('select c.usu_id, c.com_texto, u.usu_username from comentario c inner join usuario u on c.usu_id = u.usu_id where c.tra_id = ?', tra_id, callback)
 }
 
 Resumos.prototype.newReply = function (comment_id, usu_id, comment, callback) {

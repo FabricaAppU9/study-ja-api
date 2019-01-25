@@ -146,12 +146,10 @@ module.exports = function (app) {
                 if (!error) {
                     res.send(resultado);
                     res.status(200);
-                    next();
                 }
                 else {
                     res.status(500);
                     res.send(error);
-                    next();
                 }
             });
         } else {
@@ -264,9 +262,7 @@ module.exports = function (app) {
         let resumosDao = new app.persistencia.ResumosDao(connect);
         resumosDao.getAllComents(trab_id, (err, resultado) => {
             if (!err) {
-                res.status(200).json({
-                    comentarios: resultado
-                });
+                res.status(200).json(resultado);
             } else {
                 res.status(400).json({
                     Mensagem: "Não foi possível carregar os comentários",
