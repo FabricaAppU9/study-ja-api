@@ -44,10 +44,10 @@ Resumos.prototype.listaResumosArtigo = function (callback) {
     this._connection.query('select t.*,a.*,u.usu_nome from trabalho t inner join artigo a on t.tra_id = a.tra_id inner join usuario u on t.tra_usu_id=u.usu_id', callback);
 }
 Resumos.prototype.listIdArtigo = function (id, callback) {
-    this._connection.query('select tr.*,ta.*,ar.*,tt.*, u.usu_nome, u.usu_sobrenome from trabalho_tag tt inner join trabalho tr on tt.tra_id = tr.tra_id inner join tag ta on tt.tag_id = ta.tag_id inner join artigo ar on tr.tra_id = ar.tra_id inner join usuario u on tr.tra_usu_id = usu_id where tr.tra_id = ?', id, callback);
+    this._connection.query('select tr.*,ta.*,ar.*,tt.*, u.usu_nome, u.usu_sobrenome, u.usu_sexo from trabalho_tag tt inner join trabalho tr on tt.tra_id = tr.tra_id inner join tag ta on tt.tag_id = ta.tag_id inner join artigo ar on tr.tra_id = ar.tra_id inner join usuario u on tr.tra_usu_id = usu_id where tr.tra_id = ?', id, callback);
 }
 Resumos.prototype.listIdLivro = function (id, callback) {
-    this._connection.query('select tr.*,ta.*,lv.*,tt.*, u.usu_nome, u.usu_sobrenome from trabalho_tag tt inner join trabalho tr on tt.tra_id = tr.tra_id inner join tag ta on tt.tag_id = ta.tag_id inner join livro lv on tr.tra_id = lv.tra_id inner join usuario u on tr.tra_usu_id = usu_id where tr.tra_id = ?', id, callback);
+    this._connection.query('select tr.*,ta.*,lv.*,tt.*, u.usu_nome, u.usu_sobrenome, u.usu_sexo from trabalho_tag tt inner join trabalho tr on tt.tra_id = tr.tra_id inner join tag ta on tt.tag_id = ta.tag_id inner join livro lv on tr.tra_id = lv.tra_id inner join usuario u on tr.tra_usu_id = usu_id where tr.tra_id = ?', id, callback);
 }
 Resumos.prototype.editar = function (id, callback) {
     this._connection.query("update trabalho set trab_inf_post = 1 where usu_id = ? ", id, callback);
