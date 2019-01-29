@@ -232,7 +232,7 @@ module.exports = function (app) {
             }
         });
     });
-    app.post('/resumos/resumo/comentar', TokenAuth, (req, res, next) => {
+    app.post('/resumos/comentar/resumo/', TokenAuth, (req, res, next) => {
         let tra_id = req.body.comnt_tra_id;
         let usu_id = req.body.comnt_usu_id;
         let coment = req.body.comnt_comentario;
