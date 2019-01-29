@@ -28,4 +28,4 @@ Usuarios.prototype.getProfileInfo = function (username, callback){
 }
 module.exports = () => {
     return Usuarios;
-}
+} 

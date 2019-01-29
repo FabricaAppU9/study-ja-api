@@ -212,6 +212,6 @@ module.exports = (app) => {
                     message: "Username não encontrado"
                 });
             }
-        })  
-    })
+        });  
+    });
 }
