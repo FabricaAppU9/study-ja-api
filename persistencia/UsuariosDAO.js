@@ -23,6 +23,9 @@ Usuarios.prototype.getUserInfo = function (id, callback) {
 Usuarios.prototype.hasEmail = function (email, callback) {
     this._connection.query("select usu_id from usuario where usu_email = ?", email, callback);
 }
+Usuarios.prototype.getProfileInfo = function (username, callback){
+    this._connection.query("select usu_id, usu_nome, usu_sobrenome, usu_username, usu_img_perfil, usu_descricao from usuario where usu_username = ?", username, callback);
+}
 module.exports = () => {
     return Usuarios;
 }
