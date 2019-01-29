@@ -204,7 +204,7 @@ module.exports = (app) => {
         usuariosDAO.getProfileInfo(username, (err, resultado) => {
             if(!err){
                 res.status(200).json({
-                    message: resultado
+                    resultado
                 });
             } else {
                 res.status(400).json({
