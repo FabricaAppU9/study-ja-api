@@ -197,13 +197,13 @@ module.exports = (app) => {
 
     app.get("/usuario/profile/:username", (req, res, next) => {
         let username = req.params.username;
-        const connection = app.persistencia.connectionFactory();
+        let connection = app.persistencia.connectionFactory();
         connection.connect();
-        const usuariosDao = new app.persistencia.usuariosDAO(connection);
+        let usuariosDAO = new app.persistencia.UsuariosDAO(connection);
 
-        usuariosDao.getProfileInfo(username, (err, resultado) => {
-            if(username === ''){
-                return res.status(500).json({
+        usuariosDAO.getProfileInfo(username, (err, resultado) => {
+            if(!err){
+                res.status(200).json({
                     message: resultado
                 });
             } else {
@@ -212,6 +212,6 @@ module.exports = (app) => {
                     message: "Username não encontrado"
                 });
             }
-        });  
+        })  
     });
 }
